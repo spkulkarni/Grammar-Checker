@@ -1,0 +1,64 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+	  <link type="text/css" rel="stylesheet" href="css/style.css"/>
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body ng-app="myApp">
+	    <div class="row" ng-controller="spellController">
+        <div class="col s12 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Grammer Checker</span>
+            </div>
+            <div class="card-action">
+				<div class="row">
+				 <form class="col s12" ng-submit="checkSpelling()">
+				  <div class="row">
+					<div class="input-field col s12">
+					  <textarea id="textarea1" class="materialize-textarea whiteFontColor" ng-model="spell.text" required></textarea>
+					  <label for="textarea1">Enter Your Text here</label>
+					</div>
+				  </div>
+					<button class="btn waves-effect waves-light" type="submit" name="action" ng-click="">Check Grammer
+						<i class="material-icons right">send</i>
+				   </button>
+				 </form>
+				</div>
+            </div>
+          </div>
+        </div>
+		<div class="col s12 m6" ng-show="result">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Result</span>
+            </div>
+	        <div class="card-action" ng-show="result.matches.length === 0">
+			  <h5 class="whiteFontColor">There are no Grammer mistakes in the entered text!</h5>
+            </div>
+            <div class="card-action" ng-show="result.matches.length > 0">
+				<ul class="collection">
+					<li class="collection-item" ng-repeat="error in result.matches">
+					<div><b>Message:</b>&nbsp{{error.message}}</div>
+					<div><b>Sentence:</b>&nbsp <span ng-bind-html="error.context.text | highlight:error.context.text.substr(error.context.offset, error.context.length)"></span></div>
+					<div><b>Word:</b>&nbsp{{error.context.text.substr(error.context.offset, error.context.length)}}</div>
+					<div><b>Possible Replacements:</b>&nbsp<span ng-repeat="replacment in error.replacements track by $index">{{replacment.value}}<span ng-show="$index < error.replacements.length - 1">,&nbsp</span></span></div>
+					</li>
+				</ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+	  <script type="text/javascript" src="js/angular.js"></script>
+	  <script type="text/javascript" src="js/app.js"></script>
+    </body>
+  </html>
