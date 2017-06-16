@@ -1,0 +1,8 @@
+.whiteFontColor{
+	color: white;
+}
+
+.highlighted {
+	color: red;
+    background: yellow;
+}
